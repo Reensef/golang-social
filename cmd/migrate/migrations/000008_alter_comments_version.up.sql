@@ -1,0 +1,4 @@
+ALTER TABLE
+  comments
+ADD
+	COLUMN version INT NOT NULL DEFAULT 0;

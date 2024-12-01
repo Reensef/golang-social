@@ -1,0 +1,33 @@
+version: '3'
+
+env:
+  MIGRATIONS_PATH: ./cmd/migrate/migrations
+  DATABASE_URL: postgres://admin:adminpassword@localhost:5432/golang_social?sslmode=disable
+
+tasks:
+  migrate-create:
+    desc: "Создать новую миграцию"
+    cmds:
+      - migrate create -seq -ext sql -dir {{.MIGRATIONS_PATH}} {{.NAME}}
+
+  migrate-up:
+    desc: "Применить все миграции"
+    cmds:
+      - migrate -path "{{.MIGRATIONS_PATH}}" -database "{{.DATABASE_URL}}" up
+    
+  migrate-up-force:
+    desc: "Применить миграцию принудительно"
+    cmds:
+      - migrate -path "{{.MIGRATIONS_PATH}}" -database "{{.DATABASE_URL}}" force {{.VERSION}}
+
+  migrate-down:
+    desc: "Откатить миграции (вниз)"
+    vars:
+      STEPS: "1"
+    cmds:
+      - migrate -path "{{.MIGRATIONS_PATH}}" -database "{{.DATABASE_URL}}" down {{.STEPS}}
+  
+  db-seed:
+    desc: "Заполнить базу данными"
+    cmds:
+      - go run cmd/migrate/seed/main.go

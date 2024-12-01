@@ -1,0 +1,1 @@
+CREATE DATABASE golang_social;
