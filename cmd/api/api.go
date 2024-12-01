@@ -65,12 +65,12 @@ func (app *application) mount() http.Handler {
 			})
 		})
 
-		r.Route("/users", func(r chi.Router) {
-			r.Post("/", app.createUserHandler)
-			// r.Get("/", app.getUsersHandler)
+		// r.Route("/users", func(r chi.Router) {
+		// r.Post("/", app.createUserHandler)
+		// r.Get("/", app.getUsersHandler)
 		// 	r.Patch("/{userID}", app.updateUserHandler)
 		// 	r.Delete("/{userID}", app.deleteUserHandler)
-		})
+		// })
 	})
 
 	return r
